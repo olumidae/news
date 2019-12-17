@@ -1,6 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
 import { signupChecker, loginChecker } from '../helpers/user';
 
 /**

@@ -13,6 +13,9 @@ const errorMessages = {
   validName: 'field cannot be empty',
   validEmail: 'email must be a valid email',
   loginFailure: 'Could not log in. Email and password do not match',
+  sessionExpired: 'Session expired, login again',
+  notAuthenticated: 'You must login to have access to this feature',
+  articleExists: 'Article has already been posted',
 };
 
 export default errorMessages;

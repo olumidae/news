@@ -1,6 +1,9 @@
 import express from 'express';
 import UserController from '../controllers/user';
+import ArticlesController from '../controllers/articles';
 import { signupValidator, loginValidator } from '../middlewares/auth';
+import Auth from '../middlewares/validators';
+import ValidateArticle from '../middlewares/validateArticle';
 
 const router = express.Router();
 /**
@@ -12,5 +15,6 @@ const router = express.Router();
 
 router.post('/auth/signup', signupValidator, UserController.signup);
 router.post('/auth/signin', loginValidator, UserController.signin);
+router.post('/articles', Auth.authenticateUser, ValidateArticle.validateArticleFormData, ArticlesController.createArticle);
 
 export default router;
