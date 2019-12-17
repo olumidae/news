@@ -33,17 +33,17 @@ class UserModel extends Model {
 
   /**
    * Sign in new user
-   * @param {email} email
-   * @param {password} password
+   * @param {string} email
+   * @param {string} password
    * @returns {Object}
   */
 
   async signinQuery({ email, password }) {
     try {
       const foundUser = await this.findUserByEmail(email);
-      console.log(foundUser);
       if (foundUser && passwordHelper.comparePasswords(password, foundUser.password)) {
-        return foundUser;
+        const { rows } = await this.update('isLoggedIn=true', 'email= $1', [email]);
+        return rows[0];
       }
       return { error: 'wrong-password' };
     } catch (error) {

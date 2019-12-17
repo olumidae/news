@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi';
+import Joi from 'joi';
 /**
  * @fileoverview class to hold validation methods
  * @class Validator

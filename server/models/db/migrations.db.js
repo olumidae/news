@@ -12,14 +12,14 @@ const createTable = `DROP TABLE IF EXISTS users CASCADE;
     isLoggedIn BOOLEAN NOT NULL DEFAULT false,
     createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-DROP TABLE IF EXISTS Articles CASCADE;
+DROP TABLE IF EXISTS articles CASCADE;
     CREATE TABLE articles (
         id SERIAL PRIMARY KEY NOT NULL,
         title VARCHAR(128) NOT NULL,
         article VARCHAR NOT NULL,
         createdBy SERIAL NOT NULL REFERENCES Users (id),
         createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updatedOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        updatedOn TIMESTAMP
     );`;
 
 pool.query(createTable).then(() => pool.end()).catch((err) => console.log(err));

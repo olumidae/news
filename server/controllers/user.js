@@ -69,7 +69,6 @@ class UsersController {
   static async signin(req, res) {
     try {
       const signInResult = await usersModel.signinQuery(req.body);
-      console.log(signInResult);
       if (signInResult.error === 'wrong-password') {
         return ResponseHelpers.setError(res, 403, errorStrings.loginFailure);
       }
@@ -87,8 +86,7 @@ class UsersController {
     const userData = {
       email: existingUser.email,
       token: generateToken(existingUser),
-      isAdmin: existingUser.isAdmin,
-      isLoggedIn: true,
+      isLoggedIn: existingUser.isLoggedIn,
     };
     return userData;
   }
