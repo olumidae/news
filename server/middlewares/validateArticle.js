@@ -21,7 +21,7 @@ class ValidateArticle {
    * @returns {Object} error
   */
 
-  static validateArticleFormData(request, response, next) { 
+  static validateArticleFormData(request, response, next) {
     const title = Joi.string().max(128).required();
     const article = Joi.string().required();
 

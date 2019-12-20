@@ -1,6 +1,6 @@
 import ArticleModel from '../models/articleModel';
-import ResponseHelpers from '../helpers/responseHelper';
 import errorStrings from '../helpers/errors';
+import ResponseHelper from '../helpers/responseHelper';
 
 const articleModel = new ArticleModel('articles');
 
@@ -24,7 +24,7 @@ class ArticlesController {
     try {
       const isAlreadyPosted = await articleModel.findArticleByTitle(title);
       if (isAlreadyPosted) {
-        return ResponseHelpers.setError(res, 409, errorStrings.articleExists);
+        return ResponseHelper.setError(res, 409, errorStrings.articleExists);
       }
       //
       const newArticle = await articleModel.createArticle(req.user, req.body);
@@ -33,10 +33,9 @@ class ArticlesController {
       }
       //
       // const articleData = ArticlesController.createArticleObject(newArticle);
-      console.log(newArticle);
-      return ResponseHelpers.setSuccess(res, 201, newArticle);
+      return ResponseHelper.setSuccess(res, 201, newArticle);
     } catch (error) {
-      return ResponseHelpers.setError(res, 500, errorStrings.serverError);
+      return ResponseHelper.setError(res, 500, errorStrings.serverError);
     }
   }
 
@@ -46,15 +45,24 @@ class ArticlesController {
    * @returns {object} articleData
   */
 
-  static createArticleObject(newArticle) {
-    const articleData = {
-      id: newArticle.id,
-      title: newArticle.title,
-      article: newArticle.article,
-      createdBy: newArticle.creaatedBy,
-      createdOn: newArticle.createdOn,
-    };
-    return articleData;
+  // static createArticleObject(newArticle) {
+  //   const articleData = {
+  //     id: newArticle.id,
+  //     title: newArticle.title,
+  //     article: newArticle.article,
+  //     createdBy: newArticle.creaatedBy,
+  //     createdOn: newArticle.createdOn,
+  //   };
+  //   return articleData;
+  // }
+
+  static async editArticles(req, res) {
+    try {
+      const editArticle = await articleModel.updateArticle(req.body, req.params);
+      return ResponseHelper.setSuccess(res, 200, editArticle);
+    } catch (error) {
+      return ResponseHelper.setError(res, 500, errorStrings.serverError);
+    }
   }
 }
 

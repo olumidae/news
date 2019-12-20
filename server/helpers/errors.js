@@ -16,6 +16,8 @@ const errorMessages = {
   sessionExpired: 'Session expired, login again',
   notAuthenticated: 'You must login to have access to this feature',
   articleExists: 'Article has already been posted',
+  noArticle: 'Article does not exist',
+  wrongArticle: 'Cannot edit article created by another user',
 };
 
 export default errorMessages;
