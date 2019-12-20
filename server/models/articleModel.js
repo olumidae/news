@@ -16,7 +16,7 @@ class ArticleModel extends Model {
   */
 
   async createArticle(user, body) {
-    const {id} = user;
+    const { id } = user;
     const articleTitle = body.title;
     const articleContent = body.article;
 
@@ -33,11 +33,54 @@ class ArticleModel extends Model {
   /**
    *  Find article by title
    * @param {string} title
-   * @returns {boolean}
+   * @returns {Object}
    */
   async findArticleByTitle(title) {
     try {
       const { rows } = await this.selectWhere('*', 'title=$1', [title]);
+      return rows[0];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Find an article by id
+   * @param {string} articleId
+   * @returns {Object}
+  */
+
+  async findArticleById(articleId) {
+    try {
+      const { rows } = await this.selectWhere('*', 'id=$1', [articleId]);
+      return rows[0];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async findUserArticleId(id, articleId) {
+    // const { id } = user;
+    console.log('>>>>> THIS IS THE ID', id);
+    // const { articleId } = params;
+    console.log('THIS IS THE ARTICLE ID', articleId);
+    try {
+      const { rows } = await this.selectWhere('*', 'createdBy, id', '$1, $2', [id, articleId]);
+      console.log(rows);
+      return rows[0];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateArticle(body, params) {
+    const { title, article } = body;
+    const { articleId } = params;
+    const updatedOn = new Date();
+    const values = [title, article, updatedOn, articleId];
+    try {
+      const { rows } = await this.update('title=$1, article=$2, updatedOn=$3', 'id=$4', values);
+      console.log( rows[0])
       return rows[0];
     } catch (error) {
       throw error;
