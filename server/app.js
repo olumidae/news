@@ -23,7 +23,7 @@ app.use(cors('*'));
 
 app.get('/', (req, res) => {
   res.send({
-    message: 'Hello',
+    message: 'Hello Welcome to NEWS API',
   });
 });
 

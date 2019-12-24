@@ -60,10 +60,6 @@ class ArticleModel extends Model {
   }
 
   async findUserArticleId(id, articleId) {
-    // const { id } = user;
-    console.log('>>>>> THIS IS THE ID', id);
-    // const { articleId } = params;
-    console.log('THIS IS THE ARTICLE ID', articleId);
     try {
       const { rows } = await this.selectWhere('*', 'createdBy, id', '$1, $2', [id, articleId]);
       console.log(rows);
@@ -80,8 +76,17 @@ class ArticleModel extends Model {
     const values = [title, article, updatedOn, articleId];
     try {
       const { rows } = await this.update('title=$1, article=$2, updatedOn=$3', 'id=$4', values);
-      console.log( rows[0])
       return rows[0];
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async deleteArticle(articleId) {
+    try {
+      const result = await this.deleteWhere('id= $1', [articleId]);
+      console.log(result);
+      return result.rowCount;
     } catch (error) {
       throw error;
     }
