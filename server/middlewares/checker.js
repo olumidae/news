@@ -7,7 +7,7 @@ import responseHelper from '../helpers/responseHelper';
 const articleModel = new ArticleModel('articles');
 
 export async function findArticleById(req, res, next) {
-  try {  
+  try {
     const { rows } = await articleModel.selectWhere('*', 'id=$1', [req.params.articleId]);
     if (!rows[0]) {
       return responseHelper.setError(res, 400, errorStrings.noArticle);

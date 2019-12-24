@@ -1,6 +1,6 @@
 import express from 'express';
 import UserController from '../controllers/user';
-import ArticlesController from '../controllers/articles';
+import Article from '../controllers/articles';
 import { signupValidator, loginValidator } from '../middlewares/auth';
 import Auth from '../middlewares/validators';
 import ValidateArticle from '../middlewares/validateArticle';
@@ -16,7 +16,7 @@ const router = express.Router();
 
 router.post('/auth/signup', signupValidator, UserController.signup);
 router.post('/auth/signin', loginValidator, UserController.signin);
-router.post('/articles', Auth.authenticateUser, ValidateArticle.validateArticleFormData, ArticlesController.createArticle);
-router.patch('/articles/:articleId', Auth.authenticateUser, findArticleById, findUserArticleID, ValidateArticle.validateArticleFormData, ArticlesController.editArticles);
-
+router.post('/articles', Auth.authenticateUser, ValidateArticle.validateArticleFormData, Article.createArticle);
+router.patch('/articles/:articleId', Auth.authenticateUser, findArticleById, findUserArticleID, ValidateArticle.validateArticleFormData, Article.editArticles);
+router.delete('/articles/:articleId', Auth.authenticateUser, findArticleById, findUserArticleID, Article.deleteArticle);
 export default router;

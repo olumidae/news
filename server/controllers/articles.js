@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import ArticleModel from '../models/articleModel';
 import errorStrings from '../helpers/errors';
 import ResponseHelper from '../helpers/responseHelper';
@@ -39,29 +40,26 @@ class ArticlesController {
     }
   }
 
-  /**
-   * create article object
-   * @param {object} newArticle this is an object for database
-   * @returns {object} articleData
-  */
-
-  // static createArticleObject(newArticle) {
-  //   const articleData = {
-  //     id: newArticle.id,
-  //     title: newArticle.title,
-  //     article: newArticle.article,
-  //     createdBy: newArticle.creaatedBy,
-  //     createdOn: newArticle.createdOn,
-  //   };
-  //   return articleData;
-  // }
-
   static async editArticles(req, res) {
     try {
       const editArticle = await articleModel.updateArticle(req.body, req.params);
       return ResponseHelper.setSuccess(res, 200, editArticle);
     } catch (error) {
       return ResponseHelper.setError(res, 500, errorStrings.serverError);
+    }
+  }
+
+  static async deleteArticle(req, res) {
+    const { articleId } = req.params;
+    try {
+      const deletedArticle = await articleModel.deleteArticle(articleId);
+
+      if (!deletedArticle) {
+        return ResponseHelper.setError(res, 200, errorStrings.serverError);
+      }
+      return ResponseHelper.setSuccess(res, 200, { message: 'Article deleted successfully' });
+    } catch (error) {
+      throw error;
     }
   }
 }
