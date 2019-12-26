@@ -38,6 +38,7 @@
     "build-babel": "babel -d ./build ./server -s",
     "build": "npm run clean && npm run build-babel",
     "start": "npm run build && node ./build/server.js",
+    "prod": "nodemon --exec babel-node ./server/server.js",
     "migration": "babel-node ./server/models/db/migrations.db.js"
   },
   "author": "Olumide Omitiran",

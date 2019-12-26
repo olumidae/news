@@ -29,5 +29,6 @@ app.get('/', (req, res) => {
 
 console.log('app environment: ', app.get('env'));
 app.use('/api/v1', router);
+app.use('/', (req, res) => res.status(200).json({ message: 'Welcome' }));
 
 export default app;
