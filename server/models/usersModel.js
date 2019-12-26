@@ -17,12 +17,12 @@ class UserModel extends Model {
    * @returns {object}
   */
 
-  async signupQuery({fullname, email, password, bio }) {
+  async signupQuery({ fullname, email, password, bio }) {
     const hashedPassword = passwordHelper.passwordHasher(password);
     // eslint-disable-next-line no-useless-catch
     const values = [fullname, email, hashedPassword, bio];
     try {
-      const { rows } = await this.insert('fullName, email, password, bio', '$1, $2, $3, $4', values)
+      const { rows } = await this.insert('fullName, email, password, bio', '$1, $2, $3, $4', values);
       return rows[0];
     } catch (error) {
       throw error;
@@ -81,7 +81,7 @@ class UserModel extends Model {
 
   async findAllUsersByEmail() {
     try {
-      const { rows } = await this.select('email');
+      const { rows } = await this.select('fullname');
       return rows;
     } catch (error) {
       throw error;
