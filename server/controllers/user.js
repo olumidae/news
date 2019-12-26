@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-catch */
 import UserModel from '../models/usersModel';
 import generateToken from '../helpers/token';
 import errorStrings from '../helpers/errors';
@@ -88,6 +89,18 @@ class UsersController {
       isLoggedIn: existingUser.isLoggedIn,
     };
     return userData;
+  }
+
+  static async getAllAuthors(req, res) {
+    try {
+      const allUser = await usersModel.findAllUsersByEmail();
+      if (!allUser) {
+        return ResponseHelpers.setError(res, 400, errorStrings.serverError);
+      }
+      return ResponseHelpers.setSuccess(res, 200, allUser);
+    } catch (error) {
+      throw error;
+    }
   }
 }
 

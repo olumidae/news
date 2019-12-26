@@ -78,6 +78,15 @@ class UserModel extends Model {
       throw error;
     }
   }
+
+  async findAllUsersByEmail() {
+    try {
+      const { rows } = await this.select('email');
+      return rows;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default UserModel;

@@ -21,4 +21,6 @@ router.patch('/articles/:articleId', Auth.authenticateUser, findArticleById, fin
 router.delete('/articles/:articleId', Auth.authenticateUser, findArticleById, findUserArticleID, Article.deleteArticle);
 router.get('/articles', Auth.authenticateUser, Article.getAllArticle);
 router.get('/articles/:articleId', Auth.authenticateUser, Article.getArticleById);
+router.get('/authors', Auth.authenticateUser, UserController.getAllAuthors);
+
 export default router;
