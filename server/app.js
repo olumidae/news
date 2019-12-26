@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import router from './routes/routes';
 
+require('babel-core/register');
 require('babel-polyfill');
 
 
