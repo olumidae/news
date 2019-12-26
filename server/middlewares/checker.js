@@ -19,10 +19,11 @@ export async function findArticleById(req, res, next) {
 }
 
 export async function findUserArticleID(req, res, next) {
-  const { id } = req.user;
+  const { email } = req.user;
   const { articleId } = req.params;
   try {
-    const { rows } = await articleModel.selectWhere('*', 'id=$1 AND createdBy=$2', [articleId, id]);
+    const { rows } = await articleModel.selectWhere('*', 'id=$1 AND createdBy=$2', [articleId, email]);
+
     if (!rows[0]) {
       return responseHelper.setError(res, 409, errorStrings.wrongArticle);
     }

@@ -32,8 +32,6 @@ class ArticlesController {
       if (!newArticle) {
         throw new Error(errorStrings.serverError);
       }
-      //
-      // const articleData = ArticlesController.createArticleObject(newArticle);
       return ResponseHelper.setSuccess(res, 201, newArticle);
     } catch (error) {
       return ResponseHelper.setError(res, 500, errorStrings.serverError);
@@ -43,10 +41,13 @@ class ArticlesController {
   static async editArticles(req, res) {
     try {
       const editArticle = await articleModel.updateArticle(req.body, req.params);
+      if (!editArticle) {
+        return ResponseHelper.setError(res, 500, errorStrings.serverError);
+      }
       return ResponseHelper.setSuccess(res, 200, editArticle);
     } catch (error) {
-      return ResponseHelper.setError(res, 500, errorStrings.serverError);
-    }
+      throw error;
+    } 
   }
 
   static async deleteArticle(req, res) {
@@ -58,6 +59,29 @@ class ArticlesController {
         return ResponseHelper.setError(res, 200, errorStrings.serverError);
       }
       return ResponseHelper.setSuccess(res, 200, { message: 'Article deleted successfully' });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async getAllArticle(req, res) {
+    try {
+      const getArticle = await articleModel.getArticle(req, res);
+      if (!getArticle) {
+        return ResponseHelper.setError(res, 400, errorStrings.noArticles);
+      }
+      return ResponseHelper.setSuccess(res, 200, getArticle);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async getArticleById(req, res) {
+    const { articleId } = req.params;
+    try {
+      const singleArticle = await articleModel.getArticleById(articleId);
+  
+      return ResponseHelper.setSuccess(res, 200, singleArticle);
     } catch (error) {
       throw error;
     }

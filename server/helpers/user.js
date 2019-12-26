@@ -11,11 +11,10 @@ import Joi from 'joi';
 export const signupChecker = (user) => {
   const pattern = /^[a-zA-Z0-9!@#$%&*]{3,25}$/;
   const signupFormat = {
-    firstname: Joi.string().max(50).trim().required(),
-    lastname: Joi.string().max(50).trim().required(),
+    fullname: Joi.string().max(128).required(),
     email: Joi.string().min(5).max(128).email().required(),
     password: Joi.string().regex(pattern).min(7).max(255).required(),
-    bio: Joi.string().max(300).required()
+    bio: Joi.string().max(300).required(),
   };
   return Joi.validate(user, signupFormat);
 };

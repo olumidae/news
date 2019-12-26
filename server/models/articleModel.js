@@ -16,12 +16,11 @@ class ArticleModel extends Model {
   */
 
   async createArticle(user, body) {
-    const { id } = user;
+    const { email } = user;
     const articleTitle = body.title;
     const articleContent = body.article;
-
     const createdOn = new Date();
-    const values = [articleTitle, articleContent, id, createdOn];
+    const values = [articleTitle, articleContent, email, createdOn];
     try {
       const { rows } = await this.insert('title, article, createdBy, createdOn', '$1, $2, $3, $4', values);
       return rows[0];
@@ -34,7 +33,7 @@ class ArticleModel extends Model {
    *  Find article by title
    * @param {string} title
    * @returns {Object}
-   */
+  */
   async findArticleByTitle(title) {
     try {
       const { rows } = await this.selectWhere('*', 'title=$1', [title]);
@@ -62,7 +61,6 @@ class ArticleModel extends Model {
   async findUserArticleId(id, articleId) {
     try {
       const { rows } = await this.selectWhere('*', 'createdBy, id', '$1, $2', [id, articleId]);
-      console.log(rows);
       return rows[0];
     } catch (error) {
       throw error;
@@ -85,8 +83,25 @@ class ArticleModel extends Model {
   async deleteArticle(articleId) {
     try {
       const result = await this.deleteWhere('id= $1', [articleId]);
-      console.log(result);
       return result.rowCount;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getArticle() {
+    try {
+      const { rows } = await this.select('*');
+      return rows;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getArticleById(articleId) {
+    try {
+      const { rows } = await this.selectWhere('*', 'id=$1', [articleId]);
+      return rows[0];
     } catch (error) {
       throw error;
     }

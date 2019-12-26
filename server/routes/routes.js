@@ -19,4 +19,6 @@ router.post('/auth/signin', loginValidator, UserController.signin);
 router.post('/articles', Auth.authenticateUser, ValidateArticle.validateArticleFormData, Article.createArticle);
 router.patch('/articles/:articleId', Auth.authenticateUser, findArticleById, findUserArticleID, ValidateArticle.validateArticleFormData, Article.editArticles);
 router.delete('/articles/:articleId', Auth.authenticateUser, findArticleById, findUserArticleID, Article.deleteArticle);
+router.get('/articles', Auth.authenticateUser, Article.getAllArticle);
+router.get('/articles/:articleId', Auth.authenticateUser, Article.getArticleById);
 export default router;

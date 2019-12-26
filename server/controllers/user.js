@@ -49,8 +49,7 @@ class UsersController {
   static createUserObject(newUser) {
     const userData = {
       id: newUser.id,
-      firstname: newUser.firstname,
-      lastname: newUser.lastname,
+      fullName: newUser.fullname,
       email: newUser.email,
       token: generateToken(newUser),
       isAdmin: newUser.isAdmin,
