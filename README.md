@@ -12,7 +12,7 @@ Install all dependencies by running the command: **npm** install
 
 Start the server by running thhe command: **npm** start
 
-Navigate to localhost: 3000/api/v1 in Postman to test the running application
+Navigate to https://thenewsapi.herokuapp.com/ on Postman to test the running application
 
 #API Endpoints
 <table>
